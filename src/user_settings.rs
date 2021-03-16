@@ -9,6 +9,5 @@ pub struct UserSettings {
 }
 
 pub fn get_user_settings() -> Result<UserSettings, ConfyError> {
-    let cfg: Result<UserSettings, ConfyError> = confy::load("debug-pro");
-    cfg
+    confy::load::<UserSettings>("debug-pro-scrapper")
 }
