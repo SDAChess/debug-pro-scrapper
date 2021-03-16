@@ -1,3 +1,6 @@
+use crate::user_settings;
+use crate::user_settings::UserSettings;
+
 use argh::FromArgs;
 
 #[derive(FromArgs, PartialEq, Debug)]
@@ -12,7 +15,19 @@ pub struct PullOptions {
     directory: String,
 }
 
+pub fn execute(options: PullOptions) {
+    let cfg = match user_settings::get_user_settings() {
+        Ok(t) => t,
+        Err(t) => {
+            eprintln!("{:#}", t);
+            std::process::exit(1);
+        }
+    };
+    dbg!(options.url);
+    dbg!(options.directory);
+    if cfg == UserSettings::default() {
+        println!("Please configure your profile using the configure command!");
+        return;
+    }
 
-pub fn execute(options: PullOptions) -> () {
-    dbg!(options);
 }
