@@ -1,4 +1,6 @@
+use confy::ConfyError;
 use serde::{Deserialize, Serialize};
+
 
 #[derive(Default, Serialize, Deserialize, Debug, PartialEq)]
 pub struct UserSettings {
@@ -6,17 +8,7 @@ pub struct UserSettings {
     surname: String,
 }
 
-pub fn get_user_settings() -> Option<UserSettings> {
-    let cfg: UserSettings = match confy::load("debug-pro") {
-        Ok(cfg) => cfg,
-        Err(_) => {
-            eprintln!("Error while reading the configuration file!");
-            std::process::exit(1);
-        }
-    };
-    if cfg == UserSettings::default() {
-        None
-    } else {
-        Some(cfg)
-    }
+pub fn get_user_settings() -> Result<UserSettings, ConfyError> {
+    let cfg: Result<UserSettings, ConfyError> = confy::load("debug-pro");
+    cfg
 }
