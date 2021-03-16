@@ -1,5 +1,5 @@
 [package]
-name = "debug-pro-scrapper"
+name = "scrap-practical"
 version = "0.1.0"
 authors = ["Simon Scatton <simon.scatton@epita.fr>"]
 edition = "2018"
