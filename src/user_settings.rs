@@ -7,7 +7,13 @@ pub struct UserSettings {
 }
 
 pub fn get_user_settings() -> Option<UserSettings> {
-    let cfg: UserSettings = confy::load("debug-pro").expect("Could not load config file");
+    let cfg: UserSettings = match confy::load("debug-pro") {
+        Ok(cfg) => cfg,
+        Err(_) => {
+            eprintln!("Error while reading the configuration file!");
+            std::process::exit(1);
+        }
+    };
     if cfg == UserSettings::default() {
         None
     } else {
