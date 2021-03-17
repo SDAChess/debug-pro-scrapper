@@ -1,5 +1,5 @@
-mod user_settings;
 mod commands;
+mod user_settings;
 
 use argh::FromArgs;
 
@@ -22,6 +22,8 @@ fn main() {
 
     match options.commands {
         CommandEnum::Configure(_) => commands::configure::execute(),
-        CommandEnum::Pull(options) => commands::pull::execute(options),
+        CommandEnum::Pull(options) => {
+            commands::pull::execute(options);
+        }
     }
 }
