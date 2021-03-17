@@ -14,11 +14,11 @@ The command to use it is now scrap-practical
 
 
 You have two subcommands :
-    - ``configure`` to configure the software
-    - ``pull`` to get the data
+-  ``configure`` to configure the software
+-  ``pull`` to get the data
     
 More details with 
-    - ``scrap-practical configure help``
-    - ``scrap-practical pull help``
+-  ``scrap-practical configure help``
+-  ``scrap-practical pull help``
 
 Enjoy!
