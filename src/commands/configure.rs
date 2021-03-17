@@ -1,20 +1,20 @@
-use crate::user_settings::UserSettings;
-use argh::FromArgs;
 use std::io;
+use argh::FromArgs;
+
+use crate::user_settings::UserSettings;
 
 #[derive(FromArgs, PartialEq, Debug)]
 /// Configures the program with the correct values for the user.
 #[argh(subcommand, name = "configure")]
 pub struct ConfigureOptions {}
 
-fn get_user_input_trimmed(val: &mut String) -> String {
-    match io::stdin().read_line(val) {
-        Err(t) => {
-            eprintln!("{:#}", t);
-            std::process::exit(1);
-        }
-        _ => (),
+fn get_user_input_trimmed() -> String {
+    let mut val = String::new();
+    if let Err(t) = io::stdin().read_line(&mut val) {
+        eprintln!("{:#}", t);
+        std::process::exit(1);
     };
+
     val.trim().to_string()
 }
 
@@ -24,20 +24,16 @@ pub fn execute() -> () {
     println!("This interactive session will help you configure the software.");
 
     println!("Please enter your name");
-    let mut val = String::new();
-    user_settings.name = get_user_input_trimmed(&mut val);
+    user_settings.name = get_user_input_trimmed();
 
     println!("Please enter your surname");
-    let mut val = String::new();
-    user_settings.surname = get_user_input_trimmed(&mut val);
+    user_settings.surname = get_user_input_trimmed();
 
     println!("Please enter your login");
-    let mut val = String::new();
-    user_settings.login = get_user_input_trimmed(&mut val);
+    user_settings.login = get_user_input_trimmed();
 
     println!("Please enter your email");
-    let mut val = String::new();
-    user_settings.email = get_user_input_trimmed(&mut val);
+    user_settings.email = get_user_input_trimmed();
 
     println!(
         "The new configuration is :\n

@@ -1,5 +1,6 @@
 mod commands;
 mod user_settings;
+mod error;
 
 use argh::FromArgs;
 
@@ -23,7 +24,10 @@ fn main() {
     match options.commands {
         CommandEnum::Configure(_) => commands::configure::execute(),
         CommandEnum::Pull(options) => {
-            commands::pull::execute(options);
+            if let Err(err) = commands::pull::execute(options) {
+                eprintln!("{}", err);
+                std::process::exit(1);
+            }
         }
     }
 }

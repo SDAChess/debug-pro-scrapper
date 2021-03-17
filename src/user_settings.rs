@@ -1,5 +1,5 @@
-use confy::ConfyError;
 use serde::{Deserialize, Serialize};
+use crate::error::{ScrapperResult, ScrapperError};
 
 #[derive(Default, Serialize, Deserialize, Debug, PartialEq)]
 pub struct UserSettings {
@@ -9,17 +9,23 @@ pub struct UserSettings {
     pub email: String,
 }
 
-pub fn get_user_settings() -> Result<UserSettings, ConfyError> {
-    confy::load::<UserSettings>("scrap-practical")
+pub fn get_user_settings() -> ScrapperResult<UserSettings> {
+    let cfg = confy::load::<UserSettings>("scrap-practical")?;
+    if cfg == UserSettings::default() {
+        return Err(ScrapperError::NotConfigured);
+    }
+
+    Ok(cfg)
 }
 
 impl UserSettings {
+    // TODO: Change this
     pub fn to_vector(&self) -> Vec<String> {
         let str_vector = vec![
-            self.name.to_string(),
-            self.surname.to_string(),
-            self.login.to_string(),
-            self.email.to_string(),
+            self.name.clone(),
+            self.surname.clone(),
+            self.login.clone(),
+            self.email.clone(),
         ];
         return str_vector;
     }
