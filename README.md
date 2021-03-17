@@ -7,6 +7,7 @@ To compile the project you need the Rust toolchain that you can get from [here](
 
 ```
 git clone https://github.com/SDAChess/debug-pro-scrapper.git
+cd debug-pro-scrapper
 cargo install --path .
 ```
 
