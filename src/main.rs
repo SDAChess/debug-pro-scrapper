@@ -20,7 +20,6 @@ enum CommandEnum {
 
 fn main() {
     let options: TopLevel = argh::from_env();
-
     match options.commands {
         CommandEnum::Configure(_) => commands::configure::execute(),
         CommandEnum::Pull(options) => {
